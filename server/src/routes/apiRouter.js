@@ -35,13 +35,15 @@ router.get('/api/employees', async (req, res) => {
 
 router.post('/api/employees', async (req, res) => {
   try {
-    // create new employee document
+    // get the password of the body
     const plaintext = req.body.password
 
     const saltRounds = 10
     const hashedPassword = await bcrypt.hash(plaintext, saltRounds)
+    // add a hashedPassowrd to the body
     req.body.hashedPassword = hashedPassword
 
+    // password is ignored and hashedPassword is used because of model template
     const newEmployee = new employeesModel(req.body)
     const savedEmployee = await newEmployee.save()
     res.status(201).json(newEmployee);
@@ -54,7 +56,10 @@ router.post('/api/employees', async (req, res) => {
 router.post('/api/projects', async (req, res) => {
   try {
     // create new employee document
-    const newProject = new projectsModel(req.body)
+    const { projectCode, projectName, projectDescription } = req.body;
+    const exists = await Project.findOne({ projectCode });
+    if (exists) return res.status(409).json({ error: 'Project code must be unique' });
+    const newProject = new projectsModel({ projectCode, projectName, projectDescription })
     const savedProject = await newProject.save()
     res.status(201).json(newProject);
   } catch (error) {
