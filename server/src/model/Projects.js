@@ -5,3 +5,5 @@ const projectSchema = new mongoose.Schema({
   projectName:        { type: String, required: true },
   projectDescription: { type: String }
 }, { timestamps: true });
+
+export const Projects = mongoose.model('Projects', projectSchema);

@@ -1,0 +1,12 @@
+One of the main challenges was serving the React frontend properly from the Express backend, especially in a module-based project setup. 
+There was a lack of clear documentation on how to handle routing to serve the React app correctly when using ES modules in Express. 
+After some research and experimentation, the solution was to add a catch-all route with app.get('/*', (req, res) => { res.sendFile(path_to_react_build/index.html) }).
+
+Another challenge was getting used to React's syntax. 
+JSX and the use of hooks like useState and useEffect seemed odd and different compared to standard JavaScript at first glance, but after some practice, it started to make sense.
+
+I reused the database connection setup from Lab 1, which made the MongoDB integration straightforward.
+
+If I were to redo the project, I would invest a bit more time upfront learning React’s basic concepts to speed up the initial setup.
+
+No additional libraries or frameworks were used beyond the ones required.
