@@ -13,6 +13,14 @@ function App() {
     direction: 'ascending'
   });
 
+  // REQUESTED CHANGES AFTER MEETIN (page reload every 6 seconds)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      window.location.reload();
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
+    
   useEffect(() => {
     const fetchAll = async () => {
       try {
